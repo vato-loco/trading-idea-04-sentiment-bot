@@ -1,28 +1,32 @@
-import axios from 'axios';
 import * as dotenv from 'dotenv';
+import { CryptoPanicFetcher } from './fetchers/CryptoPanicFetcher';
+import { SentimentAnalyzer } from './analyzers/SentimentAnalyzer';
 
 dotenv.config();
 
-/**
- * Sentiment Bot MVP
- * Doel: Ophalen van Fear & Greed Index en voorbereiden van Social Scrapers.
- */
+async function main() {
+  console.log('Starting Sentiment Bot...');
 
-async function getFearAndGreedIndex() {
-  try {
-    const response = await axios.get('https://api.alternative.me/fng/');
-    const data = response.data.data[0];
-    console.log(`📊 Fear & Greed Index: ${data.value} (${data.value_classification})`);
-    return data;
-  } catch (error) {
-    console.error('Fout bij ophalen Fear & Greed Index:', error);
+  // Initialize fetcher
+  const fetcher = new CryptoPanicFetcher();
+  
+  console.log('Fetching recent news...');
+  const newsData = await fetcher.fetchNews();
+
+  if (newsData && newsData.results) {
+    console.log(`Fetched ${newsData.results.length} news items.`);
+    
+    // Initialize analyzer
+    const analyzer = new SentimentAnalyzer();
+    
+    console.log('Analyzing sentiment...');
+    const sentiment = await analyzer.analyze(newsData.results);
+    
+    console.log('Sentiment Analysis Result:');
+    console.table(sentiment);
+  } else {
+    console.log('Failed to fetch news or no results found.');
   }
 }
 
-async function main() {
-  console.log('⚡ Sentiment Bot Starting...');
-  await getFearAndGreedIndex();
-  // ToDo: Voeg X (Twitter) en Reddit scrapers toe
-}
-
-main();
+main().catch(console.error);
