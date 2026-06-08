@@ -1,2 +1,11 @@
 # Trading Idee 04: De Sentiment Bot
-Analyse van markt-emoties via X, Reddit en Fear & Greed.
+## Concept
+Meet de 'Fear & Greed' van de markt door social media en on-chain data te scannen. 
+
+## Indicatoren
+- Fear & Greed Index API
+- Social Media Sentiment (Vader/TextBlob)
+- Exchange Inflow/Outflow
+
+## Status
+- [x] Concept & Research
