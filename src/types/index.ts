@@ -16,6 +16,8 @@ export interface CryptoPanicNews {
     toxic: number;
     saved: number;
     comments: number;
+    bullish?: number;
+    bearish?: number;
   };
 }
 
@@ -31,4 +33,19 @@ export interface SentimentScore {
   confidence: number;
   source: string;
   timestamp: Date;
+}
+
+export interface FearAndGreedData {
+  value: string;
+  value_classification: string;
+  timestamp: string;
+  time_until_update?: string;
+}
+
+export interface FearAndGreedResponse {
+  name: string;
+  data: FearAndGreedData[];
+  metadata: {
+    error: string | null;
+  };
 }

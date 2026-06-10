@@ -12,11 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.5"
+    "axios": "^1.17.0",
+    "dotenv": "^16.4.5",
+    "sentiment": "^5.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
+    "@types/sentiment": "^5.0.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
