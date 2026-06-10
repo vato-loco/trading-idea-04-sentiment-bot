@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Sentiment Bot</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 640px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+      color: #1a1a1a;
+      background: #fafafa;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .timestamp { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+    .signal {
+      display: inline-block;
+      font-size: 1.75rem;
+      font-weight: 700;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    .signal.bullish { background: #d4edda; color: #155724; }
+    .signal.bearish { background: #f8d7da; color: #721c24; }
+    .signal.neutral { background: #e2e3e5; color: #383d41; }
+    .scores { display: grid; gap: 1rem; }
+    .score-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+    }
+    .score-card h2 { margin: 0 0 0.5rem; font-size: 1rem; color: #555; }
+    .score-card .value { font-size: 1.5rem; font-weight: 600; }
+    .score-card .meta { font-size: 0.8rem; color: #999; margin-top: 0.25rem; }
+    .error { color: #721c24; }
+  </style>
+</head>
+<body>
+  <h1>Crypto Sentiment Bot</h1>
+  <div class="timestamp" id="timestamp">Loading...</div>
+  <div id="content"></div>
+
+  <script>
+    fetch('latest.json?cb=' + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('timestamp').textContent =
+          'Last updated: ' + new Date(data.timestamp).toLocaleString();
+
+        const signalClass = data.aggregate.signal.toLowerCase();
+        const content = document.getElementById('content');
+
+        content.innerHTML = `
+          <div class="signal ${signalClass}">${data.aggregate.signal} (${data.aggregate.score})</div>
+          <div class="scores">
+            <div class="score-card">
+              <h2>News Sentiment</h2>
+              <div class="value">${data.source_scores.news.score.toFixed(4)}</div>
+              <div class="meta">confidence: ${data.source_scores.news.confidence}</div>
+            </div>
+            <div class="score-card">
+              <h2>Fear &amp; Greed Index</h2>
+              <div class="value">${data.source_scores.fear_and_greed.score.toFixed(4)}</div>
+              <div class="meta">confidence: ${data.source_scores.fear_and_greed.confidence}</div>
+            </div>
+          </div>
+        `;
+      })
+      .catch(err => {
+        document.getElementById('content').innerHTML =
+          '<p class="error">Failed to load latest.json: ' + err.message + '</p>';
+      });
+  </script>
+</body>
+</html>

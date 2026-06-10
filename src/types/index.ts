@@ -1,31 +1,8 @@
-export interface CryptoPanicNews {
-  kind: string;
-  domain: string;
+export interface NewsItem {
   title: string;
-  published_at: string;
-  slug: string;
   url: string;
-  id: number;
-  votes: {
-    negative: number;
-    positive: number;
-    important: number;
-    liked: number;
-    disliked: number;
-    lol: number;
-    toxic: number;
-    saved: number;
-    comments: number;
-    bullish?: number;
-    bearish?: number;
-  };
-}
-
-export interface CryptoPanicResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: CryptoPanicNews[];
+  published_at: string;
+  source: string;
 }
 
 export interface SentimentScore {

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-06-10T13:51:12.756Z",
+  "source_scores": {
+    "news": {
+      "score": -0.04072961259625699,
+      "confidence": 1,
+      "source": "NewsSentimentAnalyzer",
+      "timestamp": "2026-06-10T13:51:12.756Z"
+    },
+    "fear_and_greed": {
+      "score": -0.82,
+      "confidence": 1,
+      "source": "FearAndGreedAnalyzer",
+      "timestamp": "2026-06-10T13:51:12.756Z"
+    }
+  },
+  "aggregate": {
+    "score": -0.3524,
+    "signal": "BEARISH"
+  }
+}
