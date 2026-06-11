@@ -14,6 +14,7 @@
       background: #fafafa;
     }
     h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .description { color: #555; font-size: 0.9rem; margin-bottom: 0.5rem; }
     .timestamp { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
     .signal {
       display: inline-block;
@@ -36,13 +37,33 @@
     .score-card h2 { margin: 0 0 0.5rem; font-size: 1rem; color: #555; }
     .score-card .value { font-size: 1.5rem; font-weight: 600; }
     .score-card .meta { font-size: 0.8rem; color: #999; margin-top: 0.25rem; }
+    .tech-info {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: #888;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 1.25rem;
+      line-height: 1.6;
+    }
+    .tech-info strong { color: #555; }
     .error { color: #721c24; }
   </style>
 </head>
 <body>
   <h1>Crypto Sentiment Bot</h1>
+  <p class="description">Combines real-time sentiment from major crypto news RSS feeds (60%) with the Fear &amp; Greed Index (40%) to generate a definitive market signal.</p>
   <div class="timestamp" id="timestamp">Loading...</div>
   <div id="content"></div>
+
+  <div class="tech-info">
+    <strong>How it works:</strong><br>
+    Headlines from <strong>CoinDesk</strong>, <strong>Cointelegraph</strong>, and <strong>Decrypt</strong> are fetched via RSS and scored locally using the
+    <strong>AFINN lexicon</strong> (<code>sentiment</code> library). This produces a News Sentiment score (−1 to +1).
+    Combined with the <strong>Fear &amp; Greed Index</strong> from Alternative.me, the weighted aggregate
+    (News RSS 60% + F&amp;G 40%) is mapped to a discrete signal:
+    <strong>BULLISH</strong> (≥ +0.25), <strong>BEARISH</strong> (≤ −0.25), or <strong>NEUTRAL</strong>.
+    No external API keys are required for the sentiment analysis — it runs entirely client-side.
+  </div>
 
   <script>
     fetch('latest.json?cb=' + Date.now())
@@ -58,14 +79,14 @@
           <div class="signal ${signalClass}">${data.aggregate.signal} (${data.aggregate.score})</div>
           <div class="scores">
             <div class="score-card">
-              <h2>News Sentiment</h2>
+              <h2>News RSS Feeds (CoinDesk, Cointelegraph, Decrypt)</h2>
               <div class="value">${data.source_scores.news.score.toFixed(4)}</div>
-              <div class="meta">confidence: ${data.source_scores.news.confidence}</div>
+              <div class="meta">confidence: ${data.source_scores.news.confidence} · weight: 60%</div>
             </div>
             <div class="score-card">
               <h2>Fear &amp; Greed Index</h2>
               <div class="value">${data.source_scores.fear_and_greed.score.toFixed(4)}</div>
-              <div class="meta">confidence: ${data.source_scores.fear_and_greed.confidence}</div>
+              <div class="meta">confidence: ${data.source_scores.fear_and_greed.confidence} · weight: 40%</div>
             </div>
           </div>
         `;
