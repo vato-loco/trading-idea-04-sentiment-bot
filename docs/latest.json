@@ -1,17 +1,17 @@
 {
-  "timestamp": "2026-07-25T21:55:30.467Z",
+  "timestamp": "2026-07-25T22:55:56.213Z",
   "source_scores": {
     "news": {
       "score": -0.003977957409329958,
       "confidence": 1,
       "source": "NewsSentimentAnalyzer",
-      "timestamp": "2026-07-25T21:55:30.467Z"
+      "timestamp": "2026-07-25T22:55:56.213Z"
     },
     "fear_and_greed": {
       "score": -0.46,
       "confidence": 1,
       "source": "FearAndGreedAnalyzer",
-      "timestamp": "2026-07-25T21:55:30.467Z"
+      "timestamp": "2026-07-25T22:55:56.213Z"
     }
   },
   "aggregate": {
