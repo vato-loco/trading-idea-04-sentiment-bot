@@ -1,21 +1,21 @@
 {
-  "timestamp": "2026-10-25T14:50:31.472Z",
+  "timestamp": "2026-10-25T18:10:20.769Z",
   "source_scores": {
     "news": {
-      "score": -0.032379237549516195,
+      "score": -0.030040056262966484,
       "confidence": 1,
       "source": "NewsSentimentAnalyzer",
-      "timestamp": "2026-10-25T14:50:31.472Z"
+      "timestamp": "2026-10-25T18:10:20.769Z"
     },
     "fear_and_greed": {
       "score": 0.08,
       "confidence": 1,
       "source": "FearAndGreedAnalyzer",
-      "timestamp": "2026-10-25T14:50:31.472Z"
+      "timestamp": "2026-10-25T18:10:20.769Z"
     }
   },
   "aggregate": {
-    "score": 0.0126,
+    "score": 0.014,
     "signal": "NEUTRAL"
   }
 }
